@@ -1,0 +1,701 @@
+I have retrieved the HTML code for the three files you provided. You can save each of these code blocks as separate `.html` files (e.g., `Homepage.html`, `FAQs.html`, `New-Intake-Form.html`) and open them in your web browser to view them as a website.
+
+Here is the HTML code for each file:
+
+### Homepage.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weight Loss Treatment Eligibility Check | Weight Doctors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#115e59',secondary:'#0d9488'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+}
+.testimonial-slider {
+scroll-behavior: smooth;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #e2e8f0;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+border-color: #3b82f6;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #3b82f6;
+border-color: #3b82f6;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.cookie-banner {
+transform: translateY(100%);
+transition: transform 0.3s ease-in-out;
+}
+.cookie-banner.show {
+transform: translateY(0);
+}
+.modal-overlay {
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+}
+.modal-overlay.active {
+opacity: 1;
+visibility: visible;
+}
+.modal-content {
+transform: translateY(-20px);
+transition: all 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+transform: translateY(0);
+}
+.progress-bar {
+transition: width 0.3s ease;
+}
+.form-step {
+display: none;
+}
+.form-step.active {
+display: block;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<header class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<a href="index.html" class="h-12 flex items-center"><img src="https://static.readdy.ai/image/59afbd070226a4177bdf895a15f31c1e/c2e17f1018281a10a28728a52eb554e5.png" alt="Weight Doctors" class="h-full"></a>
+<a href="index.html" class="text-gray-800 hover:text-primary font-medium transition duration-300">Back to Home</a>
+</div>
+</header>
+<div id="result-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-8">
+<div id="result-content"></div>
+</div>
+</div>
+<header class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<a href="#" class="h-12 flex items-center"><img src="https://static.readdy.ai/image/59afbd070226a4177bdf895a15f31c1e/c2e17f1018281a10a28728a52eb554e5.png" alt="Weight Doctors" class="h-full"></a>
+<nav class="hidden md:flex items-center space-x-8">
+<a href="#" class="text-gray-800 hover:text-primary font-medium transition duration-300">Home</a>
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/52b42731-1a55-4efe-84a0-981dcf43890c" data-readdy="true" class="text-gray-800 hover:text-primary font-medium transition duration-300">FAQ</a>
+<a href="#contact" class="text-gray-800 hover:text-primary font-medium transition duration-300">Contact</a>
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/6f25dc0d-a6cf-47b1-ae3d-95e27f211abb" data-readdy="true" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-primary/90 transition duration-300 whitespace-nowrap inline-flex items-center">Book Consultation</a>
+</nav>
+<button class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700" id="mobile-menu-button">
+<i class="ri-menu-line ri-2x"></i>
+</button>
+</div>
+<div class="md:hidden hidden bg-white" id="mobile-menu">
+<div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+<a href="#" class="text-gray-800 hover:text-primary font-medium py-2 transition duration-300">Home</a>
+<a href="#services" class="text-gray-800 hover:text-primary font-medium py-2 transition duration-300">Services</a>
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/52b42731-1a55-4efe-84a0-981dcf43890c" data-readdy="true" class="text-gray-800 hover:text-primary font-medium py-2 transition duration-300">FAQ</a>
+<a href="#contact" class="text-gray-800 hover:text-primary font-medium py-2 transition duration-300">Contact</a>
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/6f25dc0d-a6cf-47b1-ae3d-95e27f211abb" data-readdy="true" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-primary/90 transition duration-300 whitespace-nowrap inline-flex items-center">Book Consultation</a>
+</div>
+</div>
+</header>
+<section class="pt-24 relative overflow-hidden min-h-[600px]" style="background-image: url('https://readdy.ai/api/search-image?query=A%20professional%20medical%20scene%20with%20a%20doctor%20consulting%20a%20patient%20about%20weight%20management.%20The%20left%20side%20of%20the%20image%20has%20a%20clean%2C%20light%20background%20that%20gradually%20transitions%20to%20a%20more%20detailed%20medical%20office%20setting%20on%20the%20right.%20The%20scene%20shows%20modern%20medical%20equipment%2C%20health%20charts%2C%20and%20a%20friendly%20doctor-patient%20interaction.%20The%20overall%20tone%20is%20professional%2C%20reassuring%2C%20and%20health-focused%20with%20soft%20lighting%20and%20a%20calming%20color%20palette.&width=1920&height=800&seq=hero1&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/30"></div>
+<div class="container mx-auto px-4 py-20 md:py-32 relative">
+<div class="w-full md:w-1/2 lg:w-2/5">
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">Doctors Led Medical Weight Loss Programme</h1>
+<p class="text-lg md:text-xl text-gray-700 mb-6">Experience breakthrough weight loss with our advanced weekly injectable treatment. Our medical team specialises in prescribing the latest NICE-UK approved medications that can help you achieve significant, sustainable weight loss.</p>
+<div class="grid grid-cols-1 gap-4 mb-8">
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 flex-shrink-0 flex items-center justify-center text-primary mt-1">
+<i class="ri-percent-line"></i>
+</div>
+<p class="text-gray-700">Lose up to 20% with our Weight Loss Service</p>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 flex-shrink-0 flex items-center justify-center text-primary mt-1">
+<i class="ri-medicine-bottle-line"></i>
+</div>
+<p class="text-gray-700">Manufacturer-sourced medications</p>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 flex-shrink-0 flex items-center justify-center text-primary mt-1">
+<i class="ri-calendar-check-line"></i>
+</div>
+<p class="text-gray-700">Supported by clinical expertise and monthly check-ins</p>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 flex-shrink-0 flex items-center justify-center text-primary mt-1">
+<i class="ri-wallet-3-line"></i>
+</div>
+<p class="text-gray-700">No hidden fees (pay-as-you-go)</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/6f25dc0d-a6cf-47b1-ae3d-95e27f211abb" data-readdy="true" id="eligibility-check-btn" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition duration-300 whitespace-nowrap cursor-pointer inline-flex items-center">Am I Eligible for treatment? <i class="ri-arrow-right-line ml-2"></i></a>
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/52b42731-1a55-4efe-84a0-981dcf43890c" data-readdy="true" class="bg-white text-gray-800 border border-gray-300 px-8 py-3 !rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap cursor-pointer inline-flex items-center">Learn More</a>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-[#E6F3E8]">
+<div class="container mx-auto px-4">
+<div class="flex flex-col lg:flex-row items-center gap-8">
+<div class="w-full lg:w-1/2 flex flex-col items-center">
+<p class="text-lg text-gray-700 mb-4">Lose up to 20% of your bodyweight in a year *</p>
+<div class="text-[140px] font-bold text-primary leading-none flex items-center mb-4">
+<span class="text-[60px] mr-2">-</span>20<span class="text-[60px]">%</span>
+</div>
+<div class="relative w-full max-w-md">
+<img src="https://readdy.ai/api/search-image?query=A%20professional%20before%20and%20after%20weight%20loss%20transformation%20photo%20of%20the%20same%20woman.%20Left%20side%20shows%20her%20at%20a%20higher%20weight%20wearing%20casual%20clothing%20against%20a%20neutral%20background.%20Right%20side%20shows%20her%20after%20significant%20weight%20loss%2C%20looking%20confident%20and%20healthy%20in%20similar%20clothing.%20The%20lighting%20is%20consistent%2C%20and%20both%20photos%20are%20taken%20from%20the%20same%20angle.%20The%20transformation%20is%20realistic%20and%20inspiring%2C%20not%20extreme.%20The%20overall%20tone%20is%20positive%20and%20encouraging.&width=800&height=400&seq=beforeafter1&orientation=landscape" alt="Before and after weight loss transformation" class="w-full h-auto rounded-lg shadow-lg">
+<div class="absolute inset-0 bg-gradient-to-t from-[#E6F3E8] to-transparent rounded-lg"></div>
+</div>
+</div>
+<div class="w-full lg:w-1/2">
+<div class="bg-[#FFB800] rounded-lg p-8">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-2xl font-semibold text-gray-900">Weight loss calculator</h3>
+<div class="flex items-center gap-2">
+<span class="text-sm">kgs</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" id="unit-toggle" class="sr-only peer">
+<div class="w-11 h-6 bg-primary rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+</label>
+<span class="text-sm">lbs</span>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-sm font-medium text-gray-900 mb-2">Select your current weight:</label>
+<div class="relative">
+<input type="range" id="weight-slider" min="40" max="200" value="94" class="w-full h-2 bg-primary rounded-lg appearance-none cursor-pointer">
+<div class="absolute right-0 -top-8 text-2xl font-bold text-gray-900">
+<span id="current-weight">94</span>
+<span class="text-base font-normal">kgs</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-sm font-medium text-gray-900 mb-2">Weight you could lose:</label>
+<div class="text-right">
+<span id="weight-loss" class="text-2xl font-bold text-gray-900">19</span>
+<span class="text-base font-normal text-gray-900">kgs</span>
+</div>
+</div>
+<p class="text-xs text-gray-700">*This calculator is only an example for illustrative purposes and the results are not guaranteed. Every weight loss experience is unique. This example is based on research showing weight loss of up to 20% over a 72-week period with Tirzepatide</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex flex-col lg:flex-row items-center gap-8">
+<div class="w-full lg:w-1/2 py-8">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Advanced Medical Weight Loss Treatment</h2>
+<p class="text-lg text-gray-700 mb-6">Transform your weight loss journey with our cutting-edge weekly injectable treatment. This revolutionary medication works by:</p>
+<ul class="space-y-4 mb-8">
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-start text-primary">
+<i class="ri-check-line"></i>
+</div>
+<p class="ml-2 text-gray-700">Regulating appetite and reducing food cravings</p>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-start text-primary">
+<i class="ri-check-line"></i>
+</div>
+<p class="ml-2 text-gray-700">Slowing down gastric emptying to keep you feeling fuller for longer</p>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-start text-primary">
+<i class="ri-check-line"></i>
+</div>
+<p class="ml-2 text-gray-700">Improving blood sugar control, which can impact weight management</p>
+</li>
+</ul>
+<a href="#eligibility-check-btn" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition duration-300 whitespace-nowrap inline-flex items-center">Check Eligibility <i class="ri-arrow-right-line ml-2"></i></a>
+</div>
+<div class="w-full lg:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=A%20medical%20professional%20holding%20a%20modern%20injectable%20pen%20for%20weight%20loss%20treatment.%20The%20focus%20is%20on%20the%20pen%20and%20the%20professional's%20hands%2C%20with%20a%20subtle%20medical%20background%20that%20implies%20a%20clinic%20or%20pharmacy%20setting.%20The%20image%20should%20convey%20precision%2C%20safety%2C%20and%20professionalism.&width=800&height=500&seq=injectionpen1&orientation=landscape" alt="Injectable weight loss treatment" class="w-full h-auto rounded-lg shadow-lg">
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4 text-center">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">How Our Programme Works</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+<div class="w-16 h-16 flex items-center justify-center bg-teal-100 rounded-full text-primary mb-4 text-3xl font-bold">1</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-3">Online Consultation & Eligibility Check</h3>
+<p class="text-gray-600">Complete our comprehensive online questionnaire. Our medical team will review your information to confirm your eligibility for treatment.</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+<div class="w-16 h-16 flex items-center justify-center bg-teal-100 rounded-full text-primary mb-4 text-3xl font-bold">2</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-3">Prescription & Medication Delivery</h3>
+<p class="text-gray-600">Upon approval, your prescription will be issued, and your medication will be discreetly delivered to your doorstep.</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+<div class="w-16 h-16 flex items-center justify-center bg-teal-100 rounded-full text-primary mb-4 text-3xl font-bold">3</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-3">Ongoing Support & Progress Tracking</h3>
+<p class="text-gray-600">Benefit from monthly check-ins with our team to track your progress and adjust your treatment plan as needed.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-white">
+<div class="container mx-auto px-4 text-center">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">What Our Patients Say</h2>
+<div class="testimonial-slider overflow-hidden relative">
+<div class="flex space-x-8" id="testimonials">
+<div class="flex-none w-full md:w-1/2 lg:w-1/3 bg-gray-50 p-6 rounded-lg shadow-md">
+<p class="text-lg text-gray-700 mb-4">"This program changed my life! I've lost weight I never thought possible, and the support has been incredible."</p>
+<p class="font-semibold text-gray-900">- Jane Doe</p>
+</div>
+<div class="flex-none w-full md:w-1/2 lg:w-1/3 bg-gray-50 p-6 rounded-lg shadow-md">
+<p class="text-lg text-gray-700 mb-4">"Highly recommend! The treatment is effective, and the medical team is very professional and caring."</p>
+<p class="font-semibold text-gray-900">- John Smith</p>
+</div>
+<div class="flex-none w-full md:w-1/2 lg:w-1/3 bg-gray-50 p-6 rounded-lg shadow-md">
+<p class="text-lg text-gray-700 mb-4">"I'm so grateful for this program. It's easy to follow, and the results speak for themselves. I feel healthier and happier."</p>
+<p class="font-semibold text-gray-900">- Emily White</p>
+</div>
+<div class="flex-none w-full md:w-1/2 lg:w-1/3 bg-gray-50 p-6 rounded-lg shadow-md">
+<p class="text-lg text-gray-700 mb-4">"A fantastic approach to weight loss. The regular check-ins keep me motivated, and the medication truly works."</p>
+<p class="font-semibold text-gray-900">- David Green</p>
+</div>
+</div>
+<button class="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg" onclick="scrollTestimonials(-1)">
+<i class="ri-arrow-left-s-line text-2xl"></i>
+</button>
+<button class="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg" onclick="scrollTestimonials(1)">
+<i class="ri-arrow-right-s-line text-2xl"></i>
+</button>
+</div>
+</div>
+</section>
+<section class="py-16 bg-primary text-white text-center">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
+<p class="text-lg md:text-xl mb-8">Take the first step towards a healthier you with our expert-led medical weight loss programme.</p>
+<a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/6f25dc0d-a6cf-47b1-ae3d-95e27f211abb" data-readdy="true" class="bg-white text-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-100 transition duration-300 inline-flex items-center">Book Your Consultation <i class="ri-arrow-right-line ml-2"></i></a>
+</div>
+</section>
+<section id="contact" class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="max-w-2xl mx-auto text-center">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+<p class="text-lg text-gray-700 mb-8">Have questions? We're here to help.</p>
+<div class="bg-white p-8 rounded-lg shadow-md text-left">
+<form action="https://readdy.ai/api/form/j62d3n2b2d6i8n1e9d1a" method="POST" class="space-y-6">
+<div>
+<label for="name" class="block text-gray-700 text-sm font-medium mb-2">Name</label>
+<input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+</div>
+<div>
+<label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+<input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+</div>
+<div>
+<label for="message" class="block text-gray-700 text-sm font-medium mb-2">Message</label>
+<textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required></textarea>
+</div>
+<button type="submit" class="w-full bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition duration-300">Send Message</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-gray-800 text-white py-12">
+<div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<h3 class="text-xl font-semibold mb-4">Weight Doctors</h3>
+<p class="text-gray-400">Your partner in medical weight loss and wellness.</p>
+</div>
+<div>
+<h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+<li><a href="#services" class="text-gray-400 hover:text-white transition duration-300">Services</a></li>
+<li><a href="https://readdy.ai/home/57bf6c93-1b46-42e6-9726-07c6879b4c61/52b42731-1a55-4efe-84a0-981dcf43890c" data-readdy="true" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
+<li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+<p class="text-gray-400">Email: info@weightdoctors.com</p>
+<p class="text-gray-400">Phone: +1 (123) 456-7890</p>
+<div class="flex space-x-4 mt-4">
+<a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="ri-facebook-fill ri-lg"></i></a>
+<a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="ri-twitter-fill ri-lg"></i></a>
+<a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="ri-linkedin-fill ri-lg"></i></a>
+<a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="ri-instagram-fill ri-lg"></i></a>
+</div>
+</div>
+</div>
+<div class="container mx-auto px-4 text-center mt-8 border-t border-gray-700 pt-8">
+<p class="text-gray-500 text-sm">&copy; 2025 Weight Doctors. All rights reserved.</p>
+<p class="text-gray-500 text-sm mt-2">
+<a href="#" class="text-gray-500 hover:text-white">Privacy Policy</a> |
+<a href="#" class="text-gray-500 hover:text-white">Terms of Service</a>
+</p>
+</div>
+</footer>
+<div id="cookie-banner" class="cookie-banner fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 flex flex-col md:flex-row items-center justify-between z-50">
+<p class="text-sm mb-2 md:mb-0">
+We use cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our <a href="#" class="text-primary hover:underline">Privacy Policy</a>.
+</p>
+<button id="accept-cookies" class="bg-primary text-white px-4 py-2 !rounded-button text-sm font-medium hover:bg-primary/90 transition duration-300">
+Accept Cookies
+</button>
+</div>
+<div id="eligibility-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 p-8">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Weight Loss Treatment Eligibility Check</h2>
+<form id="eligibility-form">
+<div id="form-steps" class="space-y-6">
+<div id="step-1" class="form-step active">
+<h3 class="text-xl font-semibold text-gray-800 mb-4">1. Calculate Your BMI</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div>
+<label for="current_weight" class="block text-gray-700 text-sm font-medium mb-2">Current Weight</label>
+<div class="flex">
+<input type="number" id="current_weight" name="current_weight" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g., 70" required>
+<select id="weight_unit" name="weight_unit" class="px-4 py-2 border border-gray-300 rounded-r-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary">
+<option value="kg">kg</option>
+<option value="lbs">lbs</option>
+</select>
+</div>
+</div>
+<div>
+<label for="height" class="block text-gray-700 text-sm font-medium mb-2">Height</label>
+<div class="flex">
+<input type="number" id="height" name="height" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g., 170" required>
+<select id="height_unit" name="height_unit" class="px-4 py-2 border border-gray-300 rounded-r-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary">
+<option value="cm">cm</option>
+<option value="ft">ft</option>
+</select>
+</div>
+</div>
+</div>
+<div class="bg-gray-100 p-4 rounded-md flex items-center justify-between">
+<p class="text-gray-700 font-medium">Your BMI:</p>
+<span id="bmi-result" class="text-2xl font-bold text-primary">--</span>
+<span id="bmi-category" class="text-sm font-medium text-gray-600">--</span>
+</div>
+</div>
+<div id="step-2" class="form-step">
+<h3 class="text-xl font-semibold text-gray-800 mb-4">2. Medical History</h3>
+<p class="text-gray-700 mb-4">Please indicate if you have any of the following conditions:</p>
+<div class="space-y-3">
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" name="condition" value="type1_diabetes">
+<span class="checkmark mt-0.5"></span>
+<span class="ml-2">Type 1 Diabetes</span>
+</label>
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" name="condition" value="eating_disorder">
+<span class="checkmark mt-0.5"></span>
+<span class="ml-2">Active Eating Disorder</span>
+</label>
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" name="condition" value="pregnant_breastfeeding">
+<span class="checkmark mt-0.5"></span>
+<span class="ml-2">Pregnant, Breastfeeding, or planning pregnancy within 6 months</span>
+</label>
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" name="condition" value="renal_hepatic_impairment">
+<span class="checkmark mt-0.5"></span>
+<span class="ml-2">Severe Renal or Hepatic Impairment</span>
+</label>
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" name="condition" value="thyroid_cancer_history">
+<span class="checkmark mt-0.5"></span>
+<span class="ml-2">Personal or family history of medullary thyroid cancer or MEN2</span>
+</label>
+</div>
+</div>
+<div id="step-3" class="form-step">
+<h3 class="text-xl font-semibold text-gray-800 mb-4">3. Your Goals and Lifestyle</h3>
+<div class="mb-4">
+<label for="goal_weight" class="block text-gray-700 text-sm font-medium mb-2">What is your goal weight? (optional)</label>
+<input type="number" id="goal_weight" name="goal_weight" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g., 60">
+</div>
+<div class="mb-4">
+<label for="dietary_habits" class="block text-gray-700 text-sm font-medium mb-2">Describe your current dietary habits:</label>
+<textarea id="dietary_habits" name="dietary_habits" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+</div>
+<div class="mb-4">
+<label for="exercise_level" class="block text-gray-700 text-sm font-medium mb-2">How active are you?</label>
+<select id="exercise_level" name="exercise_level" class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary">
+<option value="">Select an option</option>
+<option value="sedentary">Sedentary (little to no exercise)</option>
+<option value="light">Lightly active (light exercise/sports 1-3 days/week)</option>
+<option value="moderate">Moderately active (moderate exercise/sports 3-5 days/week)</option>
+<option value="very">Very active (hard exercise/sports 6-7 days/week)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-8">
+<button type="button" id="prev-btn" class="bg-gray-300 text-gray-800 px-6 py-3 !rounded-button font-medium hover:bg-gray-400 transition duration-300 hidden">Previous</button>
+<button type="button" id="next-btn" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition duration-300 ml-auto">Next</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const eligibilityModal = document.getElementById('eligibility-modal');
+const eligibilityBtn = document.getElementById('eligibility-check-btn');
+const formSteps = document.querySelectorAll('.form-step');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const resultModal = document.getElementById('result-modal');
+const resultContent = document.getElementById('result-content');
+const currentWeightInput = document.getElementById('current_weight');
+const weightUnitSelect = document.getElementById('weight_unit');
+const heightInput = document.getElementById('height');
+const heightUnitSelect = document.getElementById('height_unit');
+const bmiResultSpan = document.getElementById('bmi-result');
+const bmiCategorySpan = document.getElementById('bmi-category');
+const cookieBanner = document.getElementById('cookie-banner');
+const acceptCookiesBtn = document.getElementById('accept-cookies');
+let currentStep = 1;
+const totalSteps = formSteps.length;
+function showStep(step) {
+formSteps.forEach((s, index) => {
+s.classList.toggle('active', index + 1 === step);
+});
+prevBtn.classList.toggle('hidden', step === 1);
+nextBtn.textContent = step === totalSteps ? 'Submit' : 'Next';
+updateBMI();
+}
+function updateBMI() {
+const weight = parseFloat(currentWeightInput.value);
+const height = parseFloat(heightInput.value);
+const weightUnit = weightUnitSelect.value;
+const heightUnit = heightUnitSelect.value;
+if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+bmiResultSpan.textContent = '--';
+bmiCategorySpan.textContent = '--';
+return;
+}
+let weightKg = weight;
+let heightM = height;
+if (weightUnit === 'lbs') {
+weightKg = weight * 0.453592;
+}
+if (heightUnit === 'ft') {
+heightM = height * 30.48; // convert feet to cm
+}
+if (heightUnit === 'cm') {
+heightM = heightM / 100; // convert cm to meters
+}
+if (heightUnit === 'ft') {
+heightM = heightM / 100; // convert cm to meters
+}
+const bmi = weightKg / (heightM * heightM);
+bmiResultSpan.textContent = bmi.toFixed(1);
+if (bmi < 18.5) {
+bmiCategorySpan.textContent = 'Underweight';
+bmiCategorySpan.className = 'text-sm font-medium text-blue-600';
+} else if (bmi >= 18.5 && bmi < 25) {
+bmiCategorySpan.textContent = 'Normal weight';
+bmiCategorySpan.className = 'text-sm font-medium text-green-600';
+} else if (bmi >= 25 && bmi < 30) {
+bmiCategorySpan.textContent = 'Overweight';
+bmiCategorySpan.className = 'text-sm font-medium text-orange-600';
+} else if (bmi >= 30 && bmi < 35) {
+bmiCategorySpan.textContent = 'Obese Class I';
+bmiCategorySpan.className = 'text-sm font-medium text-red-600';
+} else if (bmi >= 35 && bmi < 40) {
+bmiCategorySpan.textContent = 'Obese Class II';
+bmiCategorySpan.className = 'text-sm font-medium text-red-700';
+} else {
+bmiCategorySpan.textContent = 'Obese Class III';
+bmiCategorySpan.className = 'text-sm font-medium text-red-800';
+}
+}
+currentWeightInput.addEventListener('input', updateBMI);
+weightUnitSelect.addEventListener('change', updateBMI);
+heightInput.addEventListener('input', updateBMI);
+heightUnitSelect.addEventListener('change', updateBMI);
+function validateCurrentStep() {
+if (currentStep === 1) {
+const weight = currentWeightInput.value;
+const height = heightInput.value;
+if (!weight || !height) {
+alert('Please enter your current weight and height.');
+return false;
+}
+}
+return true;
+}
+function checkEligibility() {
+const bmi = parseFloat(bmiResultSpan.textContent);
+const conditions = Array.from(document.querySelectorAll('#step-2 input[type="checkbox"]:checked')).map(cb => cb.value);
+const reasons = [];
+if (isNaN(bmi)) {
+reasons.push('BMI could not be calculated. Please ensure valid weight and height inputs.');
+} else if (bmi < 27) {
+reasons.push(`Your BMI (${bmi.toFixed(1)}) is below the minimum required for treatment.`);
+}
+if (conditions.includes('type1_diabetes')) {
+reasons.push('Type 1 Diabetes is a contraindication.');
+}
+if (conditions.includes('eating_disorder')) {
+reasons.push('Active Eating Disorder is a contraindication.');
+}
+if (conditions.includes('pregnant_breastfeeding')) {
+reasons.push('Pregnant, Breastfeeding, or planning pregnancy within 6 months is a contraindication.');
+}
+if (conditions.includes('renal_hepatic_impairment')) {
+reasons.push('Severe Renal or Hepatic Impairment is a contraindication.');
+}
+if (conditions.includes('thyroid_cancer_history')) {
+reasons.push('Personal or family history of medullary thyroid cancer or MEN2 is a contraindication.');
+}
+return { eligible: reasons.length === 0, reasons: reasons };
+}
+function showResult(result) {
+resultContent.innerHTML = `
+<div class="text-center">
+<div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center ${result.eligible ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'} mb-6">
+<i class="ri-${result.eligible ? 'check-circle-line' : 'close-circle-line'} ri-3x"></i>
+</div>
+<h3 class="text-2xl font-bold text-gray-900 mb-3">${result.eligible ? 'Congratulations! You are eligible.' : 'Unfortunately, you are not eligible at this time.'}</h3>
+${result.eligible ? `
+<p class="text-gray-700 mb-6">Based on your answers, you appear to meet the initial criteria for our medical weight loss program. We will be in touch shortly to discuss next steps.</p>
+<div class="flex justify-center gap-4">
+<button onclick="window.location.href='#contact'" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition duration-300 whitespace-nowrap cursor-pointer">Contact Us</button>
+<button onclick="closeModal()" class="bg-white text-gray-800 border border-gray-300 px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap cursor-pointer">Close</button>
+</div>
+` : `
+<p class="text-gray-700 mb-4">We understand this may be disappointing. Eligibility for medical weight loss treatments depends on various health factors.</p>
+<p class="text-gray-700 font-semibold mb-3">Reasons for ineligibility:</p>
+<ul class="list-disc list-inside text-left text-gray-600 mb-6 mx-auto max-w-sm">
+${result.reasons.map(reason => `<li>${reason}</li>`).join('')}
+</ul>
+<p class="text-gray-700 mb-6">We encourage you to consult with your primary healthcare provider to discuss alternative options.</p>
+<div class="flex justify-center gap-4">
+<button onclick="window.location.href='#contact'" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition duration-300 whitespace-nowrap cursor-pointer">Contact Us</button>
+<button onclick="closeModal()" class="bg-white text-gray-800 border border-gray-300 px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap cursor-pointer">Close</button>
+</div>
+`}
+</div>
+`;
+resultModal.classList.remove('hidden');
+eligibilityModal.classList.add('hidden');
+}
+function closeModal() {
+resultModal.classList.add('hidden');
+}
+nextBtn.addEventListener('click', () => {
+if (!validateCurrentStep()) {
+return;
+}
+if (currentStep < totalSteps) {
+currentStep++;
+showStep(currentStep);
+} else {
+const eligibilityResult = checkEligibility();
+showResult(eligibilityResult);
+}
+});
+prevBtn.addEventListener('click', () => {
+if (currentStep > 1) {
+currentStep--;
+showStep(currentStep);
+}
+});
+resultModal.addEventListener('click', (e) => {
+if (e.target === resultModal) {
+closeModal();
+}
+});
+eligibilityBtn.addEventListener('click', () => {
+eligibilityModal.classList.remove('hidden');
+eligibilityModal.classList.add('active');
+currentStep = 1;
+showStep(currentStep);
+});
+// Testimonial Slider functionality
+const testimonialsContainer = document.getElementById('testimonials');
+let scrollIndex = 0;
+function scrollTestimonials(direction) {
+const testimonialWidth = testimonialsContainer.children[0].offsetWidth + 32; // item width + gap
+scrollIndex += direction;
+if (scrollIndex < 0) {
+scrollIndex = 0;
+}
+if (scrollIndex > testimonialsContainer.children.length - 1) { // Adjusted for single item width and dynamic number of children
+scrollIndex = testimonialsContainer.children.length - 1;
+}
+testimonialsContainer.style.transform = `translateX(-${scrollIndex * testimonialWidth}px)`;
+}
+// Cookie banner functionality
+if (!localStorage.getItem('cookiesAccepted')) {
+cookieBanner.classList.add('show');
+}
+acceptCookiesBtn.addEventListener('click', () => {
+localStorage.setItem('cookiesAccepted', 'true');
+cookieBanner.classList.remove('show');
+});
+// Mobile menu toggle
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', () => {
+mobileMenu.classList.toggle('hidden');
+});
+showStep(currentStep);
+});
+</script>
+</body>
+</html>
+```
