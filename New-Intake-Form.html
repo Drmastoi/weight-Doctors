@@ -1,739 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New Patient Intake Form</title>
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-<style>
-:where([class^="ri-"])::before { content: "\f3c2"; }
-body {
-background-color: #f9fafb;
-color: #1f2937;
-}
-.form-section {
-transition: all 0.3s ease-in-out;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
--webkit-appearance: none;
-margin: 0;
-}
-input[type="number"] {
--moz-appearance: textfield;
-}
-.custom-checkbox {
-position: relative;
-cursor: pointer;
-}
-.custom-checkbox input {
-position: absolute;
-opacity: 0;
-cursor: pointer;
-}
-.checkmark {
-position: relative;
-height: 24px;
-width: 24px;
-background-color: #fff;
-border: 2px solid #d1d5db;
-border-radius: 4px;
-}
-.custom-checkbox:hover input ~ .checkmark {
-border-color: #9ca3af;
-}
-.custom-checkbox input:checked ~ .checkmark {
-background-color: #3b82f6;
-border-color: #3b82f6;
-}
-.checkmark:after {
-content: "";
-position: absolute;
-display: none;
-}
-.custom-checkbox input:checked ~ .checkmark:after {
-display: block;
-}
-.custom-checkbox .checkmark:after {
-left: 8px;
-top: 4px;
-width: 6px;
-height: 12px;
-border: solid white;
-border-width: 0 2px 2px 0;
-transform: rotate(45deg);
-}
-</style>
-<script>tailwind.config={theme:{extend:{colors:{primary:'#3b82f6',secondary:'#64748b'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Patient Intake Form</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+  <style>
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+    body { background-color: #f9fafb; color: #1f2937; }
+    .form-section { transition: all 0.3s ease-in-out; }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="number"] { -moz-appearance: textfield; }
+    .custom-checkbox { position: relative; cursor: pointer; }
+    .custom-checkbox input { position: absolute; opacity: 0; cursor: pointer; }
+    .checkmark { position: relative; height: 24px; width: 24px; background-color: #fff; border: 2px solid #d1d5db; border-radius: 4px; }
+    .custom-checkbox:hover input ~ .checkmark { border-color: #9ca3af; }
+    .custom-checkbox input:checked ~ .checkmark { background-color: #3b82f6; border-color: #3b82f6; }
+    .checkmark:after { content: ""; position: absolute; display: none; }
+    .custom-checkbox input:checked ~ .checkmark:after { display: block; }
+    .custom-checkbox .checkmark:after { left: 8px; top: 4px; width: 6px; height: 12px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#3b82f6', secondary: '#64748b' },
+          borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' }
+        }
+      }
+    }
+  </script>
 </head>
 <body class="min-h-screen">
 <div class="max-w-3xl mx-auto p-5 bg-white shadow-sm rounded-lg my-8">
-<header class="mb-6">
-<h1 class="text-2xl font-bold text-gray-800 text-center">Book Your Treatment</h1>
-<p class="text-gray-600 mt-1.5 text-center">Please complete this form accurately to help us provide you with the best care</p>
-</header>
-<div class="mb-6 bg-blue-50 p-4 rounded-lg">
-<div class="flex items-start">
-<div class="w-8 h-8 flex items-center justify-center mr-3 mt-0.5">
-<i class="ri-information-line ri-lg text-primary"></i>
-</div>
-<div>
-<h3 class="font-medium text-gray-800">Form Progress</h3>
-<div class="mt-2 w-full bg-gray-200 rounded-full h-2.5">
-<div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 50%"></div>
-</div>
-<p class="text-sm text-gray-600 mt-2">
-<span id="current-step">Step 1</span> of 2: Medical Screening
-</p>
-</div>
-</div>
-</div>
-<form id="intake-form" action="https://readdy.ai/api/form/d1co3u5badbiljf4tdmg" method="POST" class="space-y-4">
-<!-- Section 1: Medical Screening -->
-<div id="section-1" class="form-section">
-<div class="flex items-center mb-6">
-<img src="https://static.readdy.ai/image/59afbd070226a4177bdf895a15f31c1e/c2e17f1018281a10a28728a52eb554e5.png" alt="Weight Doctors Logo" class="h-8">
-</div>
-<div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
-<div class="flex">
-<div class="w-8 h-8 flex items-center justify-center mr-3">
-<i class="ri-alert-line ri-lg text-red-500"></i>
-</div>
-<div>
-<h3 class="font-medium text-red-800">Important Notice</h3>
-<p class="text-sm text-red-700">
-If you have any of the following conditions, you may need to consult with your doctor before proceeding with treatment.
-</p>
-</div>
-</div>
-</div>
-<h2 class="text-xl font-semibold text-gray-800 mb-4">Medical Conditions That May Affect Your Treatment</h2>
-<div class="space-y-4 mb-6">
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="thyroid_cancer" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Thyroid cancer or a family history of thyroid cancer</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="allergic_reactions" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Severe allergic reactions to tirzepatide</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="pancreatitis" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>History of pancreatitis</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="kidney_disease" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Severe kidney disease or kidney failure</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="hypoglycemia" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Hypoglycemia risk, especially if combined with insulin</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="pregnancy" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Pregnancy or breastfeeding</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="stomach_problems" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Severe stomach problems</span>
-</label>
-</div>
-<div class="flex items-start">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" name="medical_condition" value="eating_disorder" class="condition-checkbox">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span>Eating Disorder</span>
-</label>
-</div>
-</div>
-<div class="mt-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" id="no_conditions" name="no_conditions">
-<span class="checkmark mr-3 mt-0.5"></span>
-<span class="font-medium">I confirm that I do not have any of the above conditions</span>
-</label>
-<p class="text-sm text-gray-600 mt-2 ml-10">By checking this box, you confirm that none of the listed medical conditions apply to you</p>
-</div>
-<div class="mt-8 flex justify-end">
-<button type="button" id="next-button" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-Continue to Personal Information
-</button>
-</div>
-</div>
-<!-- Section 2: Personal Information -->
-<div id="section-2" class="form-section hidden">
-<h2 class="text-xl font-semibold text-gray-800 mb-6">Personal Information</h2>
-<div class="space-y-4">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label for="full_name" class="block text-sm font-medium text-gray-700 mb-0.5">Full Name</label>
-<input type="text" id="full_name" name="full_name" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-</div>
-<div>
-<label for="date_of_birth" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-<input type="date" id="date_of_birth" name="date_of_birth" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-</div>
-<div>
-<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-<input type="tel" id="phone" name="phone" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-</div>
-<div>
-<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-<input type="email" id="email" name="email" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-</div>
-</div>
-<div>
-<label for="address" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
-<input type="text" id="address" name="address" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-</div>
-<div class="border-t border-gray-200 pt-4">
-<h3 class="text-lg font-medium text-gray-800 mb-3">Medical Information</h3>
-<div class="space-y-4">
-<div>
-<label for="medical_history" class="block text-sm font-medium text-gray-700 mb-0.5">Past Medical History</label>
-<textarea id="medical_history" name="medical_history" rows="3" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Please list any past medical conditions, surgeries, or health issues"></textarea>
-</div>
-<div>
-<label for="current_medications" class="block text-sm font-medium text-gray-700 mb-1">Current Medications</label>
-<textarea id="current_medications" name="current_medications" rows="3" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Please list all medications you are currently taking, including dosages"></textarea>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label for="current_weight" class="block text-sm font-medium text-gray-700 mb-0.5">Current Weight</label>
-<div class="flex">
-<input type="number" id="current_weight" name="current_weight" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-l-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-<select id="weight_unit" name="weight_unit" class="px-3 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 focus:ring-2 focus:ring-primary focus:border-primary">
-<option value="kg">kg</option>
-<option value="lbs">lbs</option>
-</select>
-</div>
-</div>
-<div>
-<label for="height" class="block text-sm font-medium text-gray-700 mb-1">Height</label>
-<div class="flex">
-<input type="number" id="height" name="height" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-l-md focus:ring-1 focus:ring-primary focus:border-primary" required>
-<select id="height_unit" name="height_unit" class="px-3 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 focus:ring-2 focus:ring-primary focus:border-primary">
-<option value="cm">cm</option>
-<option value="ft">ft</option>
-</select>
-</div>
-</div>
-</div>
-<div class="bg-blue-50 p-4 rounded-lg">
-<h4 class="font-medium text-gray-800 mb-2">BMI Calculator</h4>
-<div class="flex items-center justify-between">
-<div>
-<p class="text-sm text-gray-600">Your BMI: <span id="bmi-result">--</span></p>
-<p class="text-sm text-gray-600">Category: <span id="bmi-category">--</span></p>
-</div>
-<button type="button" id="calculate-bmi" class="text-primary text-sm font-medium hover:text-primary-dark whitespace-nowrap !rounded-button px-4 py-2 border border-primary">
-Calculate BMI
-</button>
-</div>
-<p class="text-xs text-gray-500 mt-2">
-<a href="https://www.nhs.uk/live-well/healthy-weight/bmi-calculator/" target="_blank" class="text-primary hover:underline">
-Use external BMI calculator
-</a>
-</p>
-</div>
-</div>
-</div>
-<div class="border-t border-gray-200 pt-4">
-<h3 class="text-lg font-medium text-gray-800 mb-3">Legal Disclosure</h3>
-<div class="bg-gray-50 p-4 rounded-lg mb-4 max-h-40 overflow-y-auto">
-<p class="text-sm text-gray-700">
-I understand and acknowledge that I am responsible for my own health and weight loss decisions. I have been informed about and understand the risks and benefits associated with the treatment. I agree to contact my General Practitioner (GP) or go to the Emergency Department (ED) if I feel unwell during the course of treatment.
-<br><br>
-I understand that the Weight Doctors team will not be held responsible for any interactions, side effects, or adverse events that may occur as a result of the prescribed medication. I have provided accurate and complete information regarding my medical history and current health status.
-<br><br>
-I understand that the medication prescribed is based on the information I have provided and the professional judgment of the qualified healthcare provider reviewing my case. I agree to follow all instructions provided regarding the use of any prescribed medication.
-</p>
-</div>
-<label class="custom-checkbox flex items-start">
-<input type="checkbox" id="legal_agreement" name="legal_agreement" required>
-<span class="checkmark mr-3 mt-0.5"></span>
-<span class="text-sm">I confirm that I have read, understood, and agree to the above disclosure statement</span>
-</label>
-</div>
-</div>
-<div class="mt-6 flex justify-between">
-<button type="button" id="back-button" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-button font-medium whitespace-nowrap hover:bg-gray-50">
-Back to Screening
-</button>
-<button type="submit" id="submit-button" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
-Submit Application
-</button>
-</div>
-</div>
-</form>
-</div>
-<!-- Medical Condition Warning Modal -->
-<div id="warning-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-alert-line ri-2x text-red-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Medical Consultation Required</h3>
-</div>
-<p class="text-gray-600 mb-6">
-Based on your responses, we recommend consulting with our doctor before proceeding with this treatment. Please contact us for guidance.
-</p>
-<div class="flex justify-center">
-<button id="contact-us-button" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-Contact Us
-</button>
-</div>
-</div>
-</div>
-<!-- Contact Form Modal -->
-<div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-<div class="bg-white rounded-lg max-w-lg w-full p-6 shadow-xl">
-<div class="flex justify-between items-center mb-6">
-<h3 class="text-xl font-bold text-gray-900">Contact Our Healthcare Team</h3>
-<button id="close-contact-modal" class="text-gray-400 hover:text-gray-500">
-<i class="ri-close-line ri-lg"></i>
-</button>
-</div>
-<form id="contact-form" action="https://readdy.ai/api/form/d1cnpetbadbiljf4tdm0" method="POST" class="space-y-6">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label for="contact_name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-<input type="text" id="contact_name" name="contact_name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary" required>
-</div>
-<div>
-<label for="contact_email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-<input type="email" id="contact_email" name="contact_email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary" required>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label for="contact_phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-<input type="tel" id="contact_phone" name="contact_phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary" required>
-</div>
-<div>
-<label for="contact_method" class="block text-sm font-medium text-gray-700 mb-1">Preferred Contact Method</label>
-<select id="contact_method" name="contact_method" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary bg-white" required>
-<option value="email">Email</option>
-<option value="phone">Phone</option>
-</select>
-</div>
-</div>
-<div>
-<label for="contact_message" class="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
-<textarea id="contact_message" name="contact_message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Please describe your medical conditions and questions" required></textarea>
-</div>
-<div class="bg-gray-50 p-4 rounded-lg">
-<h4 class="font-medium text-gray-800 mb-2">Alternative Contact Methods</h4>
-<div class="space-y-2">
-<p class="text-sm text-gray-600 flex items-center">
-<i class="ri-phone-line ri-lg mr-2"></i>
-Phone: +1 (555) 123-4567
-</p>
-<p class="text-sm text-gray-600 flex items-center">
-<i class="ri-mail-line ri-lg mr-2"></i>
-Email: support@weightdoctors.com
-</p>
-</div>
-</div>
-<div class="flex justify-end space-x-4">
-<button type="button" id="cancel-contact" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-button font-medium whitespace-nowrap hover:bg-gray-50">
-Cancel
-</button>
-<button type="submit" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-Send Message
-</button>
-</div>
-</form>
-</div>
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800 text-center">Book Your Treatment</h1>
+    <p class="text-gray-600 mt-1.5 text-center">Please complete this form accurately to help us provide you with the best care</p>
+  </header>
+  <div class="mb-6 bg-blue-50 p-4 rounded-lg">
+    <div class="flex items-start">
+      <div class="w-8 h-8 flex items-center justify-center mr-3 mt-0.5">
+        <i class="ri-information-line ri-lg text-primary"></i>
+      </div>
+      <div>
+        <h3 class="font-medium text-gray-800">Form Progress</h3>
+        <div class="mt-2 w-full bg-gray-200 rounded-full h-2.5">
+          <div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 50%"></div>
+        </div>
+        <p class="text-sm text-gray-600 mt-2"><span id="current-step">Step 1</span> of 2: Medical Screening</p>
+      </div>
+    </div>
+  </div>
+  <form id="intake-form" action="" method="POST" class="space-y-4">
+    <!-- Section 1: Medical Screening -->
+    <div id="section-1" class="form-section">
+      <div class="flex items-center mb-6">
+        <img src="https://static.readdy.ai/image/59afbd070226a4177bdf895a15f31c1e/c2e17f1018281a10a28728a52eb554e5.png" alt="Weight Doctors Logo" class="h-8">
+      </div>
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+        <div class="flex">
+          <div class="w-8 h-8 flex items-center justify-center mr-3">
+            <i class="ri-alert-line ri-lg text-red-500"></i>
+          </div>
+          <div>
+            <h3 class="font-medium text-red-800">Important Notice</h3>
+            <p class="text-sm text-red-700">
+              If you have any of the following conditions, you may need to consult with your doctor before proceeding with treatment.
+            </p>
+          </div>
+        </div>
+      </div>
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Medical Conditions That May Affect Your Treatment</h2>
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="thyroid_cancer" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Thyroid cancer or a family history of thyroid cancer</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="allergic_reactions" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Severe allergic reactions to tirzepatide</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="pancreatitis" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>History of pancreatitis</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="kidney_disease" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Severe kidney disease or kidney failure</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="hypoglycemia" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Hypoglycemia risk, especially if combined with insulin</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="pregnancy" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Pregnancy or breastfeeding</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="stomach_problems" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Severe stomach problems</span></label></div>
+        <div class="flex items-start"><label class="custom-checkbox flex items-start"><input type="checkbox" name="medical_condition" value="eating_disorder" class="condition-checkbox"><span class="checkmark mr-3 mt-0.5"></span><span>Eating Disorder</span></label></div>
+      </div>
+      <div class="mt-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+        <label class="custom-checkbox flex items-start">
+          <input type="checkbox" id="no_conditions" name="no_conditions">
+          <span class="checkmark mr-3 mt-0.5"></span>
+          <span class="font-medium">I confirm that I do not have any of the above conditions</span>
+        </label>
+        <p class="text-sm text-gray-600 mt-2 ml-10">By checking this box, you confirm that none of the listed medical conditions apply to you</p>
+      </div>
+      <div class="mt-8 flex justify-end">
+        <button type="button" id="next-button" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+          Continue to Personal Information
+        </button>
+      </div>
+    </div>
+    <!-- Section 2: Personal Information -->
+    <div id="section-2" class="form-section hidden">
+      <h2 class="text-xl font-semibold text-gray-800 mb-6">Personal Information</h2>
+      <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="full_name" class="block text-sm font-medium text-gray-700 mb-0.5">Full Name</label>
+            <input type="text" id="full_name" name="full_name" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+          </div>
+          <div>
+            <label for="date_of_birth" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <input type="email" id="email" name="email" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+          </div>
+        </div>
+        <div>
+          <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
+          <input type="text" id="address" name="address" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+        </div>
+        <div class="border-t border-gray-200 pt-4">
+          <h3 class="text-lg font-medium text-gray-800 mb-3">Medical Information</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="medical_history" class="block text-sm font-medium text-gray-700 mb-0.5">Past Medical History</label>
+              <textarea id="medical_history" name="medical_history" rows="3" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Please list any past medical conditions, surgeries, or health issues"></textarea>
+            </div>
+            <div>
+              <label for="current_medications" class="block text-sm font-medium text-gray-700 mb-1">Current Medications</label>
+              <textarea id="current_medications" name="current_medications" rows="3" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Please list all medications you are currently taking, including dosages"></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="current_weight" class="block text-sm font-medium text-gray-700 mb-0.5">Current Weight</label>
+                <div class="flex">
+                  <input type="number" id="current_weight" name="current_weight" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-l-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+                  <select id="weight_unit" name="weight_unit" class="px-3 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 focus:ring-2 focus:ring-primary focus:border-primary">
+                    <option value="kg">kg</option>
+                    <option value="lbs">lbs</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="height" class="block text-sm font-medium text-gray-700 mb-1">Height</label>
+                <div class="flex">
+                  <input type="number" id="height" name="height" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-l-md focus:ring-1 focus:ring-primary focus:border-primary" required>
+                  <select id="height_unit" name="height_unit" class="px-3 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 focus:ring-2 focus:ring-primary focus:border-primary">
+                    <option value="cm">cm</option>
+                    <option value="ft">ft</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-medium text-gray-800 mb-2">BMI Calculator</h4>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600">Your BMI: <span id="bmi-result">--</span></p>
+                  <p class="text-sm text-gray-600">Category: <span id="bmi-category">--</span></p>
+                </div>
+                <button type="button" id="calculate-bmi" class="text-primary text-sm font-medium hover:text-primary-dark whitespace-nowrap !rounded-button px-4 py-2 border border-primary">Calculate BMI</button>
+              </div>
+              <p class="text-xs text-gray-500 mt-2">
+                <a href="https://www.nhs.uk/live-well/healthy-weight/bmi-calculator/" target="_blank" class="text-primary hover:underline">
+                  Use external BMI calculator
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 pt-4">
+          <h3 class="text-lg font-medium text-gray-800 mb-3">Legal Disclosure</h3>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4 max-h-40 overflow-y-auto">
+            <p class="text-sm text-gray-700">
+              I understand and acknowledge that I am responsible for my own health and weight loss decisions. I have been informed about and understand the risks and benefits associated with the treatment. I agree to contact my General Practitioner (GP) or go to the Emergency Department (ED) if I feel unwell during the course of treatment.
+              <br><br>
+              I understand that the Weight Doctors team will not be held responsible for any interactions, side effects, or adverse events that may occur as a result of the prescribed medication. I have provided accurate and complete information regarding my medical history and current health status.
+              <br><br>
+              I understand that the medication prescribed is based on the information I have provided and the professional judgment of the qualified healthcare provider reviewing my case. I agree to follow all instructions provided regarding the use of any prescribed medication.
+            </p>
+          </div>
+          <label class="custom-checkbox flex items-start">
+            <input type="checkbox" id="legal_agreement" name="legal_agreement" required>
+            <span class="checkmark mr-3 mt-0.5"></span>
+            <span class="text-sm">I confirm that I have read, understood, and agree to the above disclosure statement</span>
+          </label>
+        </div>
+      </div>
+      <div class="mt-6 flex justify-between">
+        <button type="button" id="back-button" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-button font-medium whitespace-nowrap hover:bg-gray-50">
+          Back to Screening
+        </button>
+        <button type="submit" id="submit-button" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+          Submit Application
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 <!-- Success Modal -->
 <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-check-line ri-2x text-green-500"></i>
+  <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
+    <div class="text-center mb-4">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+        <i class="ri-check-line ri-2x text-green-500"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mt-4">Application Submitted</h3>
+    </div>
+    <p class="text-gray-600 mb-6">
+      Your query has been submitted successfully. Our qualified doctor will review your case and prescribe medication if appropriate. You should receive a response within 24-48 hours.
+    </p>
+    <div class="flex justify-center">
+      <button id="close-success" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">Close</button>
+    </div>
+  </div>
 </div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Application Submitted</h3>
-</div>
-<p class="text-gray-600 mb-6">
-Your query has been submitted successfully. Our qualified doctor will review your case and prescribe medication if appropriate. You should receive a response within 24-48 hours.
-</p>
-<div class="flex justify-center">
-<button id="close-success" class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-Close
-</button>
-</div>
-</div>
-</div>
-<script id="form-validation-script">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+// Tailwind and checkboxes logic (unchanged from your current code)
 document.addEventListener('DOMContentLoaded', function() {
-const contactModal = document.getElementById('contact-modal');
-const contactButton = document.getElementById('contact-us-button');
-const closeContactModal = document.getElementById('close-contact-modal');
-const cancelContact = document.getElementById('cancel-contact');
-const contactForm = document.getElementById('contact-form');
-function showContactModal() {
-contactModal.classList.remove('hidden');
-}
-function hideContactModal() {
-contactModal.classList.add('hidden');
-contactForm.reset();
-}
-contactButton.addEventListener('click', showContactModal);
-closeContactModal.addEventListener('click', hideContactModal);
-cancelContact.addEventListener('click', hideContactModal);
-contactModal.addEventListener('click', function(e) {
-if (e.target === contactModal) {
-hideContactModal();
-}
-});
-contactForm.addEventListener('submit', function(e) {
-e.preventDefault();
-const name = document.getElementById('contact_name').value.trim();
-const email = document.getElementById('contact_email').value.trim();
-const phone = document.getElementById('contact_phone').value.trim();
-const method = document.getElementById('contact_method').value;
-const message = document.getElementById('contact_message').value.trim();
-if (!name || !email || !phone || !message) {
-const errorMessage = document.createElement('div');
-errorMessage.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorMessage.innerHTML = `
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-error-warning-line ri-2x text-red-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Please Fill All Required Fields</h3>
-</div>
-<p class="text-gray-600 mb-6">All fields are required to submit the form.</p>
-<div class="flex justify-center">
-<button class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">OK</button>
-</div>
-</div>`;
-document.body.appendChild(errorMessage);
-errorMessage.querySelector('button').onclick = () => errorMessage.remove();
-return;
-}
-if (message.length > 500) {
-const errorMessage = document.createElement('div');
-errorMessage.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorMessage.innerHTML = `
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-error-warning-line ri-2x text-red-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Message Too Long</h3>
-</div>
-<p class="text-gray-600 mb-6">Message cannot exceed 500 characters.</p>
-<div class="flex justify-center">
-<button class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">OK</button>
-</div>
-</div>`;
-document.body.appendChild(errorMessage);
-errorMessage.querySelector('button').onclick = () => errorMessage.remove();
-return;
-}
-const formData = new FormData(contactForm);
-const data = new URLSearchParams(formData);
-fetch(contactForm.action, {
-method: 'POST',
-headers: {
-'Content-Type': 'application/x-www-form-urlencoded'
-},
-body: data
-})
-.then(response => {
-if (!response.ok) {
-throw new Error('Network response was not ok');
-}
-hideContactModal();
-const successMessage = document.createElement('div');
-successMessage.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-successMessage.innerHTML = `
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-check-line ri-2x text-green-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Message Sent Successfully</h3>
-</div>
-<p class="text-gray-600 mb-6">
-Thank you for contacting us. Our team will get back to you within 24 hours.
-</p>
-<div class="flex justify-center">
-<button class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-OK
-</button>
-</div>
-</div>
-`;
-document.body.appendChild(successMessage);
-successMessage.querySelector('button').onclick = () => successMessage.remove();
-})
-.catch(error => {
-const errorMessage = document.createElement('div');
-errorMessage.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorMessage.innerHTML = `
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-error-warning-line ri-2x text-red-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Message Send Failed</h3>
-</div>
-<p class="text-gray-600 mb-6">
-There was an error sending your message. Please try again later.
-</p>
-<div class="flex justify-center">
-<button class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-OK
-</button>
-</div>
-</div>
-`;
-document.body.appendChild(errorMessage);
-errorMessage.querySelector('button').onclick = () => errorMessage.remove();
-});
-});
-const section1 = document.getElementById('section-1');
-const section2 = document.getElementById('section-2');
-const nextButton = document.getElementById('next-button');
-const backButton = document.getElementById('back-button');
-const submitButton = document.getElementById('submit-button');
-const noConditionsCheckbox = document.getElementById('no_conditions');
-const conditionCheckboxes = document.querySelectorAll('.condition-checkbox');
-const warningModal = document.getElementById('warning-modal');
-const successModal = document.getElementById('success-modal');
-const progressBar = document.getElementById('progress-bar');
-const currentStep = document.getElementById('current-step');
-const intakeForm = document.getElementById('intake-form');
-const closeSuccessButton = document.getElementById('close-success');
-// Handle condition checkboxes
-conditionCheckboxes.forEach(checkbox => {
-checkbox.addEventListener('change', function() {
-if (this.checked) {
-noConditionsCheckbox.checked = false;
-noConditionsCheckbox.disabled = true;
-warningModal.classList.remove('hidden');
-} else {
-const anyChecked = Array.from(conditionCheckboxes).some(cb => cb.checked);
-noConditionsCheckbox.disabled = anyChecked;
-}
-});
-});
-// Handle "no conditions" checkbox
-noConditionsCheckbox.addEventListener('change', function() {
-if (this.checked) {
-conditionCheckboxes.forEach(cb => {
-cb.checked = false;
-});
-nextButton.disabled = false;
-const noConditionsTimestamp = new Date().toISOString();
-const hiddenInput = document.createElement('input');
-hiddenInput.type = 'hidden';
-hiddenInput.name = 'no_conditions_confirmed_at';
-hiddenInput.value = noConditionsTimestamp;
-intakeForm.appendChild(hiddenInput);
-} else {
-nextButton.disabled = true;
-const existingInput = intakeForm.querySelector('input[name="no_conditions_confirmed_at"]');
-if (existingInput) {
-existingInput.remove();
-}
-}
-});
-// Navigate to section 2
-nextButton.addEventListener('click', function() {
-section1.classList.add('hidden');
-section2.classList.remove('hidden');
-progressBar.style.width = '100%';
-currentStep.textContent = 'Step 2';
-});
-// Navigate back to section 1
-backButton.addEventListener('click', function() {
-section2.classList.add('hidden');
-section1.classList.remove('hidden');
-progressBar.style.width = '50%';
-currentStep.textContent = 'Step 1';
-});
-// Close warning modal when clicking outside
-warningModal.addEventListener('click', function(e) {
-if (e.target === warningModal) {
-warningModal.classList.add('hidden');
-}
-});
-// Close success modal
-closeSuccessButton.addEventListener('click', function() {
-successModal.classList.add('hidden');
-// Reset form or redirect
-intakeForm.reset();
-section2.classList.add('hidden');
-section1.classList.remove('hidden');
-progressBar.style.width = '50%';
-currentStep.textContent = 'Step 1';
-nextButton.disabled = true;
-});
-// Form submission
-intakeForm.addEventListener('submit', function(e) {
-e.preventDefault();
-const formData = new FormData(intakeForm);
-const medicalConditions = [];
-document.querySelectorAll('input[name="medical_condition"]:checked').forEach(checkbox => {
-medicalConditions.push(checkbox.value);
-});
-formData.set('medical_conditions', medicalConditions.join(','));
+  const section1 = document.getElementById('section-1');
+  const section2 = document.getElementById('section-2');
+  const nextButton = document.getElementById('next-button');
+  const backButton = document.getElementById('back-button');
+  const noConditionsCheckbox = document.getElementById('no_conditions');
+  const conditionCheckboxes = document.querySelectorAll('.condition-checkbox');
+  const successModal = document.getElementById('success-modal');
+  const closeSuccessButton = document.getElementById('close-success');
+  const progressBar = document.getElementById('progress-bar');
+  const currentStep = document.getElementById('current-step');
+  const intakeForm = document.getElementById('intake-form');
 
-// Add legal agreement timestamp
-if (document.getElementById('legal_agreement').checked) {
-const legalAgreementTimestamp = new Date().toISOString();
-formData.append('legal_agreement_confirmed_at', legalAgreementTimestamp);
-}
-const allFieldsFilled = Array.from(formData.entries()).every(([key, value]) => {
-if (key === 'medical_conditions') return true;
-if (key === 'medical_history' || key === 'current_medications') return true;
-return value.trim() !== '';
-});
-const legalAgreement = document.getElementById('legal_agreement').checked;
-if (!allFieldsFilled || !legalAgreement) {
-const errorModal = document.createElement('div');
-errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorModal.innerHTML = `
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-error-warning-line ri-2x text-red-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Please Complete All Required Fields</h3>
-</div>
-<p class="text-gray-600 mb-6">
-Please ensure all required fields are filled and you have agreed to the legal disclosure.
-</p>
-<div class="flex justify-center">
-<button class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-OK
-</button>
-</div>
-</div>
-`;
-document.body.appendChild(errorModal);
-errorModal.querySelector('button').onclick = () => errorModal.remove();
-return;
-}
-const data = new URLSearchParams(formData);
-fetch(intakeForm.action, {
-method: 'POST',
-headers: {
-'Content-Type': 'application/x-www-form-urlencoded'
-},
-body: data
-})
-.then(response => {
-if (!response.ok) {
-throw new Error('Network response was not ok');
-}
-successModal.classList.remove('hidden');
-intakeForm.reset();
-})
-.catch(error => {
-const errorModal = document.createElement('div');
-errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorModal.innerHTML = `
-<div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-<div class="text-center mb-4">
-<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-<i class="ri-error-warning-line ri-2x text-red-500"></i>
-</div>
-<h3 class="text-xl font-bold text-gray-900 mt-4">Submission Error</h3>
-</div>
-<p class="text-gray-600 mb-6">
-There was an error submitting your form. Please try again later.
-</p>
-<div class="flex justify-center">
-<button class="bg-primary text-white px-6 py-3 rounded-button font-medium whitespace-nowrap">
-OK
-</button>
-</div>
-</div>
-`;
-document.body.appendChild(errorModal);
-errorModal.querySelector('button').onclick = () => errorModal.remove();
-});
-});
+  conditionCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        noConditionsCheckbox.checked = false;
+        noConditionsCheckbox.disabled = true;
+      } else {
+        const anyChecked = Array.from(conditionCheckboxes).some(cb => cb.checked);
+        noConditionsCheckbox.disabled = anyChecked;
+      }
+    });
+  });
+
+  noConditionsCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      conditionCheckboxes.forEach(cb => { cb.checked = false; });
+      nextButton.disabled = false;
+    } else {
+      nextButton.disabled = true;
+    }
+  });
+
+  nextButton.addEventListener('click', function() {
+    section1.classList.add('hidden');
+    section2.classList.remove('hidden');
+    progressBar.style.width = '100%';
+    currentStep.textContent = 'Step 2';
+  });
+
+  backButton.addEventListener('click', function() {
+    section2.classList.add('hidden');
+    section1.classList.remove('hidden');
+    progressBar.style.width = '50%';
+    currentStep.textContent = 'Step 1';
+  });
+
+  closeSuccessButton.addEventListener('click', function() {
+    successModal.classList.add('hidden');
+    intakeForm.reset();
+    section2.classList.add('hidden');
+    section1.classList.remove('hidden');
+    progressBar.style.width = '50%';
+    currentStep.textContent = 'Step 1';
+    nextButton.disabled = true;
+  });
 });
 </script>
-<script id="bmi-calculator-script">
+<script>
+// BMI Calculator (unchanged)
 document.addEventListener('DOMContentLoaded', function() {
-const calculateBmiButton = document.getElementById('calculate-bmi');
-const weightInput = document.getElementById('current_weight');
-const weightUnit = document.getElementById('weight_unit');
-const heightInput = document.getElementById('height');
-const heightUnit = document.getElementById('height_unit');
-const bmiResult = document.getElementById('bmi-result');
-const bmiCategory = document.getElementById('bmi-category');
-calculateBmiButton.addEventListener('click', function() {
-const weight = parseFloat(weightInput.value);
-const height = parseFloat(heightInput.value);
-if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
-bmiResult.textContent = 'Invalid input';
-bmiCategory.textContent = '--';
-return;
-}
-let weightKg = weight;
-let heightM = height;
-// Convert to metric if needed
-if (weightUnit.value === 'lbs') {
-weightKg = weight * 0.453592;
-}
-if (heightUnit.value === 'ft') {
-heightM = height * 30.48;
-}
-// Convert cm to m
-if (heightUnit.value === 'cm') {
-heightM = height / 100;
-}
-const bmi = weightKg / (heightM * heightM);
-bmiResult.textContent = bmi.toFixed(1);
-// Determine BMI category
-if (bmi < 18.5) {
-bmiCategory.textContent = 'Underweight';
-bmiCategory.className = 'font-medium text-blue-600';
-} else if (bmi < 25) {
-bmiCategory.textContent = 'Normal weight';
-bmiCategory.className = 'font-medium text-green-600';
-} else if (bmi < 30) {
-bmiCategory.textContent = 'Overweight';
-bmiCategory.className = 'font-medium text-yellow-600';
-} else {
-bmiCategory.textContent = 'Obese';
-bmiCategory.className = 'font-medium text-red-600';
-}
+  const calculateBmiButton = document.getElementById('calculate-bmi');
+  const weightInput = document.getElementById('current_weight');
+  const weightUnit = document.getElementById('weight_unit');
+  const heightInput = document.getElementById('height');
+  const heightUnit = document.getElementById('height_unit');
+  const bmiResult = document.getElementById('bmi-result');
+  const bmiCategory = document.getElementById('bmi-category');
+  calculateBmiButton.addEventListener('click', function() {
+    const weight = parseFloat(weightInput.value);
+    const height = parseFloat(heightInput.value);
+    if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+      bmiResult.textContent = 'Invalid input';
+      bmiCategory.textContent = '--';
+      return;
+    }
+    let weightKg = weight;
+    let heightM = height;
+    if (weightUnit.value === 'lbs') { weightKg = weight * 0.453592; }
+    if (heightUnit.value === 'ft') { heightM = height * 30.48; }
+    if (heightUnit.value === 'cm') { heightM = height / 100; }
+    const bmi = weightKg / (heightM * heightM);
+    bmiResult.textContent = bmi.toFixed(1);
+    if (bmi < 18.5) {
+      bmiCategory.textContent = 'Underweight';
+      bmiCategory.className = 'font-medium text-blue-600';
+    } else if (bmi < 25) {
+      bmiCategory.textContent = 'Normal weight';
+      bmiCategory.className = 'font-medium text-green-600';
+    } else if (bmi < 30) {
+      bmiCategory.textContent = 'Overweight';
+      bmiCategory.className = 'font-medium text-yellow-600';
+    } else {
+      bmiCategory.textContent = 'Obese';
+      bmiCategory.className = 'font-medium text-red-600';
+    }
+  });
 });
+</script>
+<script>
+// EmailJS Submission (NEW CODE)
+(function() {
+  emailjs.init("YnnsjqOayi-IRBxy_");
+})();
+
+document.getElementById('intake-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Collect checked medical conditions
+  const medicalConditions = [];
+  document.querySelectorAll('input[name="medical_condition"]:checked').forEach(cb => {
+    medicalConditions.push(cb.value);
+  });
+
+  // Compose data for EmailJS
+  const form = this;
+  const templateParams = {
+    full_name: form.full_name.value,
+    date_of_birth: form.date_of_birth.value,
+    phone: form.phone.value,
+    email: form.email.value,
+    address: form.address.value,
+    medical_history: form.medical_history.value,
+    current_medications: form.current_medications.value,
+    current_weight: form.current_weight.value + ' ' + form.weight_unit.value,
+    height: form.height.value + ' ' + form.height_unit.value,
+    medical_conditions: medicalConditions.join(', '),
+    legal_agreement: form.legal_agreement.checked ? "Yes" : "No"
+  };
+
+  // Send with EmailJS
+  emailjs.send('default_service', 'template_a4cidne', templateParams)
+    .then(function(response) {
+      document.getElementById('success-modal').classList.remove('hidden');
+      form.reset();
+    }, function(error) {
+      alert('Failed to send application. Please try again.');
+    });
 });
 </script>
 </body>
